@@ -10,7 +10,7 @@ The main goal of this task is to create a simple application for managing movies
 ## Technical requirements
 UI written in any modern JS Framework (Angular, React, Vue.js)
 
-## API:
+### API:
 * written in one of the languages: JS(NodeJS), Go, Java
 * exposed as GraphQL query language or REST endpoints (with JSON data type)
 
@@ -36,7 +36,7 @@ UI written in any modern JS Framework (Angular, React, Vue.js)
 
 1. removing  links from external domains
 
-2. removing offensive words. Replacing them with asterisk.
+2. removing offensive words. Replacing them with asterisk (****)
 
 3. your own awesome method
 
@@ -46,37 +46,26 @@ UI written in any modern JS Framework (Angular, React, Vue.js)
 
 * Documentation in README.md file - please include step by step guide (How to use endpoints?) with curl examples
 
-## Example result of GET response
+### Example result of GET response:
 ```
 [
-
     {
-
         "id" : "sjgdy223",
-
         "title" : "MyAwesomeMovie",
-
         "rating" : 3.88,
-
         "director" : "Ken Block",
-
         "actors" : ["John Snow" , "Christina  Jake"],
-
         "createdAt" : "2016-06-07T09:53:42.523"
-
-
-
     }
-
 ]
 ```
 
-## Output:
+### Output:
 
 * Source code stored on github / bitbucket etc.
 
 
 
-## Hints:
+## Hints
 
 * As a database, you can use MongoDB.
