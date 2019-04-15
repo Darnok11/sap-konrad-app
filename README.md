@@ -47,6 +47,7 @@ UI written in any modern JS Framework (Angular, React, Vue.js)
 * Documentation in README.md file - please include step by step guide (How to use endpoints?) with curl examples
 
 ### Example result of GET response:
+
 ```
 [
     {
@@ -63,8 +64,6 @@ UI written in any modern JS Framework (Angular, React, Vue.js)
 ### Output:
 
 * Source code stored on github / bitbucket etc.
-
-
 
 ## Hints
 

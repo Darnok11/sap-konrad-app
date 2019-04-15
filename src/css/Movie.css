@@ -1,0 +1,29 @@
+.sap-movie {
+   border-bottom: 1px dashed red;
+   padding: 0px 15px 20px;
+
+}
+
+.last-movie {
+   border-bottom: none;
+
+}
+.sap-movie ul li {
+   list-style-type: none;
+}
+
+.sap-movie-error {
+   color: red;
+}
+
+.sap-movie-review {
+   padding-top: 10px;
+}
+.sap-movie-review-button {
+   cursor: pointer;
+   color: green;
+}
+
+.sap-movie-list-number {
+   text-decoration: underline;
+}
