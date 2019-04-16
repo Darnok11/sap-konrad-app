@@ -1,8 +1,50 @@
-.sap-addmovie-form {
+.sap-addmovie-wrapper {
+   padding: 50px 10px 0px 10px;
+}
+.sap-addmovie-wrapper form {
+   margin: 10px 0px;
+}
+.sap-addmovie-wrapper form input {
+   width: 200px;
+   padding: 5px;
+   margin-bottom: 10px;
+   text-align: center;
+}
 
+.sap-addmovie-wrapper-form1 {}
+
+.sap-addmovie-wrapper-form2 {
+   margin-top: 20px;
+}
+
+.sap-addmovie-message-false {
+   color: red;
+}
+
+.sap-addmovie-message-true {
+   color: green;
+}
+
+.sap-addmovie-actor {
+   color: green;
+}
+.sap-addmovie-actors-wrapper {
+   margin-top: 10px;
 }
 
 
-.sap-addmovie-form input {
-   padding: 10px;
+.sap-addmovie-inputfile-wrapper {
+   background-color: #feebd2;
+   border: 2px solid green;
+   font-family: 'Underdog', cursive;
+   font-weight: 400;
+   font-style: normal;
+   font-size: 1em;
+   cursor: pointer;
+   padding: 0px 10px;
+}
+
+.sap-addmovie-inputfile {
+   /* dont know how the hell it is still working :P  */
+   display: none;
 }

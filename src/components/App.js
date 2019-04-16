@@ -5,7 +5,6 @@ import AddMovie from './AddMovie';
 
 
 
-
 class App extends Component {
    constructor(props) {
       super(props);
@@ -25,7 +24,7 @@ class App extends Component {
 
    getList(e) {
       e.preventDefault();
-      console.log("getList");
+      console.log("send proper header action in API");
    }
 
    addMovie(e) {
@@ -57,6 +56,7 @@ class App extends Component {
       } else { alert( this.props.text.prev_alert ); }
    }
 
+
    loadMovies() {
       const quantity = this.props.quantity || 0;
       const pages = this.props.pages || 0;
@@ -72,10 +72,10 @@ class App extends Component {
       // if last page than last is simply number of movies
       let last = (page === pages) ? quantity : first + on_page;
       // get movies out of all movies to load on page
-      const page_movies = this.props.movies.slice(first, last);
-
+      let page_movies = this.props.movies.slice(first, last);
+      
       return page_movies.map( (movie, index) =>
-         <Movie key={index + Math.random()} movie={movie} last={index + 1 === last - first} text={this.props.text} reviews={this.props.reviews}/>
+         <Movie key={Math.random()} movie={movie} last={index + 1 === last - first} text={this.props.text} reviews={this.props.reviews}/>
       );
 
    }
@@ -86,6 +86,7 @@ class App extends Component {
 
          <div className="App-header-buttons" >
             <button onClick={this.getList}> {this.props.text.get_list} </button>
+             <span role="img" aria-label="Movie Camera">🎥</span>
             <button onClick={this.addMovie}> {this.state.add_movie ? this.props.text.cancel : this.props.text.add_movie} </button>
          </div>
          <div className="App-header-space"></div>
@@ -111,7 +112,7 @@ class App extends Component {
 const Copyright = function() {
    const date = new Date();
 
-   return (<div className="App-copyright" id="copyright"> &#xA9; Konrad Grzyb {date.getFullYear()}</div>);
+   return (<div className="App-copyright" id="copyright"> &#xA9; Konrad <span role="img" aria-label="Mushroom">🍄</span> {date.getFullYear()}</div>);
 }
 
 

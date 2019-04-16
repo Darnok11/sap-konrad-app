@@ -10,8 +10,8 @@
    font-weight: bold;
 }
 
-button, input[type=submit] {
-   background-color: transparent;
+button, input[type=submit]  {
+   background-color: #feebd2;
    border: 2px solid green;
    font-family: 'Underdog', cursive;
      font-weight: 400;

@@ -9,22 +9,31 @@ const text_en = {
 
    "no_movies": "There are no movies yet",
    "no_review": "No review for this movie",
-   "add_movie": "ADD MOVIE",
-   "get_list": "GET LIST",
+   "add_movie": "Add Movie",
+   "get_list": "Get List",
    "not_given": "not given",
-   "wrong_format": "wrong format",
-   "wrong_title": "wrong title",
+   "wrong_format": "Wrong format",
+   "wrong_title": "Wrong title. Only letter and spaces and length 3 < title < 50.",
+   "wrong_actor_name": "Wrong actor name. Only letter and spaces and length 3 < title < 50.",
+   "wrong_rating": "Wrong rating. Should be double precision number < 5 and number > 0.",
    "out_of_range": "out of range",
 
-   "next": "NEXT",
-   "prev": "PREV",
+   "next": "Next",
+   "prev": "Prev",
    "cancel": "Cancel",
    "delete": "Delete",
 
    "add_review": "Add review",
 
    "prev_alert": "You are at the first page",
-   "next_alert": "No more pages to load"
+   "next_alert": "No more pages to load",
+
+   "any_name": "Type any name",
+   "nothing_to_remove": "Nothing to remove",
+   "load_file": "Load movie",
+   "pls_load_file": "Please load movie",
+
+   "submit_message": "Your movie was added!"
 
 };
 
