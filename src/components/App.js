@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import '../css/App.css';
 import Movie from './Movie';
-import AddMovie from './AddMovie';
+import { Link } from 'react-router-dom';
 
 
 
@@ -73,7 +73,7 @@ class App extends Component {
       let last = (page === pages) ? quantity : first + on_page;
       // get movies out of all movies to load on page
       let page_movies = this.props.movies.slice(first, last);
-      
+
       return page_movies.map( (movie, index) =>
          <Movie key={Math.random()} movie={movie} last={index + 1 === last - first} text={this.props.text} reviews={this.props.reviews}/>
       );
@@ -86,15 +86,17 @@ class App extends Component {
 
          <div className="App-header-buttons" >
             <button onClick={this.getList}> {this.props.text.get_list} </button>
+
              <span role="img" aria-label="Movie Camera">🎥</span>
-            <button onClick={this.addMovie}> {this.state.add_movie ? this.props.text.cancel : this.props.text.add_movie} </button>
+
+            <button > <Link to="./addmovie">{this.props.text.add_movie}</Link> </button>
          </div>
          <div className="App-header-space"></div>
 
-            { this.state.add_movie ? <AddMovie text={this.props.text} /> : this.loadMovies()}
+            {  this.loadMovies()}
 
          <div className="App-footer-space"></div>
-         <div className="App-footer-buttons" id="App-footer">
+         <div className="App-footer-buttons">
             <button onClick={this.loadPrev}> {this.props.text.prev} </button>
 
                <span> {this.state.page}..{this.props.pages} </span>

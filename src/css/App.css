@@ -95,7 +95,7 @@ button:focus, input[type=submit] {
    right: -20px;
 }
 
-#App-footer {
+.App-footer-buttons {
    position: fixed;
    bottom: 0;
    width: 100%;

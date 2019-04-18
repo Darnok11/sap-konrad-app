@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import '../css/AddMovie.css';
 
 class AddMovie extends Component {
@@ -183,82 +184,95 @@ class AddMovie extends Component {
    render() {
 
       return (
-         <div className="sap-addmovie-wrapper">
-            <div className="sap-addmovie-wrapper-form1">
-               <form>
-                  <label className="sap-addmovie-inputfile-wrapper">
-
-                     {this.props.text.load_file}
-
-                     <input type="file" id="file" onChange={ (e) => this.handleFiles(e.target.files)} className="sap-addmovie-inputfile"></input>
-
-                  </label>
-               </form>
+         <div className="App">
+            <div className="App-header-buttons" >
+               <button ><Link to="/">{this.props.text.go_back}</Link> </button>
             </div>
+            <div className="sap-addmovie-wrapper">
+               <div className="sap-addmovie-wrapper-form1">
+                  <form>
+                     <label className="sap-addmovie-inputfile-wrapper">
 
-            {this.state.file_name ? <p>{this.state.file_name}</p> : "" }
+                        {this.props.text.load_file}
 
-            <div className="sap-addmovie-wrapper-form2">
-               <form onSubmit={this.handleSubmit} className="sap-addmovie-form">
-                  <label>
-                     {this.props.text.title}*
+                        <input type="file" id="file" onChange={ (e) => this.handleFiles(e.target.files)} className="sap-addmovie-inputfile"></input>
 
-                     <br/>
+                     </label>
+                  </form>
+               </div>
 
-                     <input name="title" type="text" value={this.state.title} onChange={this.handleChange} maxLength="50"/>
-                  </label>
+               {this.state.file_name ? <p>{this.state.file_name}</p> : "" }
 
-                  <br/>
+               <div className="sap-addmovie-wrapper-form2">
+                  <form onSubmit={this.handleSubmit} className="sap-addmovie-form">
+                     <label>
+                        {this.props.text.title}*
 
-                  <label>
-                     {this.props.text.rating}*
+                        <br/>
 
-                     <br/>
-
-                     <input name="rating" type="text" value={this.state.rating} onChange={this.handleChange} maxLength="4"/>
-                  </label>
-
-                  <br/>
-
-                  <label>
-                     {this.props.text.actors}*
+                        <input name="title" type="text" value={this.state.title} onChange={this.handleChange} maxLength="50"/>
+                     </label>
 
                      <br/>
 
-                        <div className="sap-addmovie-actors-wrapper">
-                           {this.state.actors ? this.state.actors.map( (actor, index) => {
-                              //? add special id for actors
-                              return <span className="sap-addmovie-actor" id={"sap-movie-actor-" + index} key={Math.random()}>{actor} / </span>;
+                     <label>
+                        {this.props.text.rating}*
 
-                           }) : ""}
+                        <br/>
+
+                        <input name="rating" type="text" value={this.state.rating} onChange={this.handleChange} maxLength="4"/>
+                     </label>
+
+                     <br/>
+
+                     <label>
+                        {this.props.text.actors}*
+
+                        <br/>
+
+                           <div className="sap-addmovie-actors-wrapper">
+                              {this.state.actors ? this.state.actors.map( (actor, index) => {
+                                 //? add special id for actors
+                                 return <span className="sap-addmovie-actor" id={"sap-movie-actor-" + index} key={Math.random()}>{actor} / </span>;
+
+                              }) : ""}
+                           </div>
+
+                        <input name="actor" type="text" value={this.state.actor} onChange={this.handleChange} maxLength="50"/>
+
+                        <br/>
+
+                        <div className="sap-addmovie-addactors-buttons">
+                           <button onClick={this.addActor}> + </button>
+                           <button onClick={this.removeActor}> - </button>
                         </div>
+                     </label>
 
-                     <input name="actor" type="text" value={this.state.actor} onChange={this.handleChange} maxLength="50"/>
+
 
                      <br/>
 
-                     <div className="sap-addmovie-addactors-buttons">
-                        <button onClick={this.addActor}> + </button>
-                        <button onClick={this.removeActor}> - </button>
-                     </div>
-                  </label>
+                     <input type="submit" value="Submit"/>
+                  </form>
+               </div>
 
-
-
-                  <br/>
-
-                  <input type="submit" value="Submit"/>
-               </form>
+               <div className="sap-addmovie-message">
+                  <p className={"sap-addmovie-message-" + this.state.add_movie_flag}>{this.state.submit_message}</p>
+               </div>
             </div>
-
-            <div className="sap-addmovie-message">
-               <p className={"sap-addmovie-message-" + this.state.add_movie_flag}>{this.state.submit_message}</p>
+            <div className="App-footer-buttons">
+               <Copyright />
             </div>
          </div>
+
       );
    }
 }
 
+const Copyright = function() {
+   const date = new Date();
 
+   return (<div className="App-copyright" id="copyright"> &#xA9; Konrad <span role="img" aria-label="Mushroom">🍄</span> {date.getFullYear()}</div>);
+}
 
 export default AddMovie;
