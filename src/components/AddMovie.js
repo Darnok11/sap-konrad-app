@@ -62,27 +62,25 @@ class AddMovie extends Component {
 
    /** ------------------------------- */
 
-   checkTitle( title ) {
+   checkName( name ) {
 
       /**
-       * return false if bad title, title must be:
+       * return false if bad name, name must be:
        * - smaller than 50
        * - bigger than 3
        * - have only letters with spaces
        */
-      return (50 > title.length && title.length > 3 && /^[a-zA-Z\s]+$/.test(title) );
+      return (50 > name.length && name.length > 3 && /^[a-zA-Z\s]+$/.test(name) );
    }
 
    checkActors( actors ) {
       /** I assume same rules for actors names like in title */
-      console.log(actors);
+      if (!(actors + "").length) { return false  }
 
       for (let i = 0; i < actors.length; i++) {
-         if (!this.checkTitle(actors[i])) {
-            console.log("checking actors");
+         if (!this.checkName(actors[i])) {
             return false;
          }
-
       }
 
       return true;
@@ -94,7 +92,7 @@ class AddMovie extends Component {
        * - bigger than 0
        * - smaller than 5
        */
-       return (typeof rating === "number" && 0 < rating && rating < 5);
+       return ((rating + "").length && typeof rating === "number" && 0 < rating && rating < 5);
    }
 
    /** ------------------------------- */
@@ -131,10 +129,9 @@ class AddMovie extends Component {
 
    handleSubmit(e) {
       e.preventDefault();
-      const file_name = this.state.file_name;
-      const title = this.state.title;
-      const rating = this.state.rating;
-      const actors = this.state.actors;
+      const { file_name, title, director, rating, actors } = this.state;
+      const { text } = this.props;
+
 
       /** checking conditions with explicit conversion */
 
@@ -142,38 +139,45 @@ class AddMovie extends Component {
           /** if any field is empty */
           this.setState({
              add_movie_flag: false,
-             submit_message: this.props.text.pls_load_file
+             submit_message: text.pls_load_file
           });
 
-      } else if ( !(title + "").length || !this.checkTitle(title)) {
+      } else if ( !this.checkName(title) ) {
          /** if any field is empty */
          this.setState({
             add_movie_flag: false,
-            submit_message: this.props.text.wrong_title
+            submit_message: text.wrong_title
          });
 
-      } else if (!(rating + "").length || !this.checkRating(+rating)) {
+      } else if (!this.checkName(director)) {
          /** if any field is empty */
          this.setState({
             add_movie_flag: false,
-            submit_message: this.props.text.wrong_rating
+            submit_message: text.wrong_title
          });
 
-      } else if (!(actors + "").length || !this.checkActors(actors)) {
+      } else if (!this.checkRating(+rating)) {
          /** if any field is empty */
          this.setState({
             add_movie_flag: false,
-            submit_message: this.props.text.wrong_actor_name
+            submit_message: text.wrong_rating
+         });
+
+      } else if (!this.checkActors(actors)) {
+         /** if any field is empty */
+         this.setState({
+            add_movie_flag: false,
+            submit_message: text.wrong_actor_name
          });
 
       } else {
          /** If all ok, setting paramiters or directly call CRUD action */
          /** add date of creation */
-
          this.setState({
+            rating: rating.toFixed(2),
             createdAt: this.createISODate(),
             add_movie_flag: true,
-            submit_message: this.props.text.submit_message,
+            submit_message: text.submit_message,
          });
 
       }
@@ -182,18 +186,20 @@ class AddMovie extends Component {
    /** ------------------------------- */
 
    render() {
+      const { file_name, title, director, rating, actors, actor, add_movie_flag, submit_message } = this.state;
+      const { text } = this.props;
 
       return (
          <div className="App">
             <div className="App-header-buttons" >
-               <button ><Link to="/">{this.props.text.go_back}</Link> </button>
+               <button ><Link to="/">{text.go_back}</Link> </button>
             </div>
             <div className="sap-addmovie-wrapper">
                <div className="sap-addmovie-wrapper-form1">
                   <form>
                      <label className="sap-addmovie-inputfile-wrapper">
 
-                        {this.props.text.load_file}
+                        {text.load_file}
 
                         <input type="file" id="file" onChange={ (e) => this.handleFiles(e.target.files)} className="sap-addmovie-inputfile"></input>
 
@@ -201,44 +207,54 @@ class AddMovie extends Component {
                   </form>
                </div>
 
-               {this.state.file_name ? <p>{this.state.file_name}</p> : "" }
+               {file_name ? <p>{file_name}</p> : "" }
 
                <div className="sap-addmovie-wrapper-form2">
                   <form onSubmit={this.handleSubmit} className="sap-addmovie-form">
                      <label>
-                        {this.props.text.title}*
+                        {text.title}*
 
                         <br/>
 
-                        <input name="title" type="text" value={this.state.title} onChange={this.handleChange} maxLength="50"/>
+                        <input name="title" type="text" value={title} onChange={this.handleChange} maxLength="50"/>
                      </label>
 
                      <br/>
 
                      <label>
-                        {this.props.text.rating}*
+                        {text.director}*
 
                         <br/>
 
-                        <input name="rating" type="text" value={this.state.rating} onChange={this.handleChange} maxLength="4"/>
+                        <input name="director" type="text" value={director} onChange={this.handleChange} maxLength="50"/>
                      </label>
 
                      <br/>
 
                      <label>
-                        {this.props.text.actors}*
+                        {text.rating}*
+
+                        <br/>
+
+                        <input name="rating" type="text" value={rating} onChange={this.handleChange} maxLength="4"/>
+                     </label>
+
+                     <br/>
+
+                     <label>
+                        {text.actors}*
 
                         <br/>
 
                            <div className="sap-addmovie-actors-wrapper">
-                              {this.state.actors ? this.state.actors.map( (actor, index) => {
+                              {actors ? actors.map( (actor, index) => {
                                  //? add special id for actors
                                  return <span className="sap-addmovie-actor" id={"sap-movie-actor-" + index} key={Math.random()}>{actor} / </span>;
 
                               }) : ""}
                            </div>
 
-                        <input name="actor" type="text" value={this.state.actor} onChange={this.handleChange} maxLength="50"/>
+                        <input name="actor" type="text" value={actor} onChange={this.handleChange} maxLength="50"/>
 
                         <br/>
 
@@ -257,7 +273,7 @@ class AddMovie extends Component {
                </div>
 
                <div className="sap-addmovie-message">
-                  <p className={"sap-addmovie-message-" + this.state.add_movie_flag}>{this.state.submit_message}</p>
+                  <p className={"sap-addmovie-message-" + add_movie_flag}>{submit_message}</p>
                </div>
             </div>
             <div className="App-footer-buttons">
