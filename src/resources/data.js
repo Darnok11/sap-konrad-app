@@ -11,7 +11,8 @@ const movies = [
       "actors": [
          "John Snow", "Christina  Jake"
       ],
-      "createdAt": "2016-02-07T09:53:42.523"
+      "createdAt": "2016-02-07T09:53:42.523",
+      "review": "Siemaneczko"
    }, {
       "id": "sjgdy224",
       "rating": 1.29,

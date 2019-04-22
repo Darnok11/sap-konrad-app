@@ -173,12 +173,18 @@ class AddMovie extends Component {
       } else {
          /** If all ok, setting paramiters or directly call CRUD action */
          /** add date of creation */
+         const _createdAt =  new Date().toISOString();
+
          this.setState({
             rating: rating.toFixed(2),
-            createdAt: this.createISODate(),
+            // createdAt: this.createISODate(),
+            createdAt: _createdAt,
             add_movie_flag: true,
             submit_message: text.submit_message,
          });
+
+
+         // TODO: CREATE
 
       }
    }
