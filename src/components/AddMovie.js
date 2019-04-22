@@ -255,7 +255,7 @@ class AddMovie extends Component {
                            <div className="sap-addmovie-actors-wrapper">
                               {actors ? actors.map( (actor, index) => {
                                  //? add special id for actors
-                                 return <span className="sap-addmovie-actor" id={"sap-movie-actor-" + index} key={Math.random()}>{actor} / </span>;
+                                 return <span className="sap-addmovie-actor" id={"sap-movie-actor-" + index} key={Math.random()}>+ {actor} </span>;
 
                               }) : ""}
                            </div>
