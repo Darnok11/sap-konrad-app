@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import "../css/Notfound.css";
 
-class Notfound  extends Component {
+class NotFound  extends Component {
    render() {
       return (
          <div className="App">
@@ -27,4 +27,4 @@ const Copyright = function() {
 }
 
 
-export default Notfound;
+export default NotFound;

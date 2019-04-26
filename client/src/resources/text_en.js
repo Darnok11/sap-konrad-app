@@ -14,7 +14,7 @@ const text_en = {
    "not_given": "not given",
    "wrong_format": "Wrong format",
    "wrong_title": "Wrong title. Only letter and spaces and length 3 < title < 50.",
-   "wrong_actor_name": "Wrong actor name. Only letter and spaces and length 3 < title < 50.",
+   "wrong_actor_name": "Wrong actor name. Only letter and spaces and length 3 < actor < 50.",
    "wrong_rating": "Wrong rating. Should be double precision number < 5 and number > 0.",
    "out_of_range": "out of range",
 
@@ -35,7 +35,8 @@ const text_en = {
 
    "submit_message": "Your movie was added!",
    "go_back": "Go back",
-   "not_found": "Not found"
+   "not_found": "Not found",
+   "loading": "loading..."
 
 };
 

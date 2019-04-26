@@ -1,5 +1,9 @@
 const { buildSchema } = require('graphql');
 
+/**
+ * GraphQl schema
+ * @type {Object}
+ */
 const schema = buildSchema(`
    # non-nullable are id and createdAt
 
@@ -25,37 +29,15 @@ const schema = buildSchema(`
    type Mutation {
       createMovie(input: MovieInput): Movie
       deleteMovie(id: ID!): Movie
-      createReview(id: ID!, review: String!): Movie
       updateReview(id: ID!, review: String!): Movie
    }
 
    type Query {
-      # if id given return one Movie
+      # if id given return one Movie, if no arguments than return sorted list of Movies by rating
+
       movies(start: Int, end: Int, id: ID): [Movie]
+      count: Int
    }
 `);
 
 module.exports = schema;
-
-
-/**
-   //NOTE:
-   how to use mutation:
-
-   mutation {
-  createMovie(input: {
-    title: "Batman i Pingwin",
-    director: "Konrad",
-    rating: 0.23,
-    actors: ["Superman", "IronMan", "Aquaman"],
-
-
-     }
-
-     ) {
-       id
-       createdAt
-     }
-   }
-
-*/

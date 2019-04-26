@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import AddReview from './AddReview';
 import '../css/Movie.css';
-
+import { graphql, compose } from 'react-apollo';
+import { deleteMovieMutation, updateReviewMutation } from '../graphql/mutations';
+import { reviewQuery } from '../graphql/queries';
 
 
 class Movie extends Component {
@@ -146,5 +148,8 @@ class Movie extends Component {
    }
 }
 
-
-export default Movie;
+export default compose(
+   graphql(deleteMovieMutation, {name: 'deleteMovieMutation'}),
+   graphql(updateReviewMutation, {name: 'updateReviewMutation'}),
+   graphql(reviewQuery, {name: 'reviewQuery'}),
+)(Movie);
