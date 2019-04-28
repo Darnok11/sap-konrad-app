@@ -1,6 +1,6 @@
 import { gql } from 'apollo-boost';
 
-const reviewQuery = gql`
+const REVIEW_QUERY = gql`
    query($id: ID!){
       movies(id: $id) {
          review
@@ -8,9 +8,9 @@ const reviewQuery = gql`
    }
 `;
 
-const moviesQuery = gql`
-   query($start: Int!, $end: Int!){
-      movies(start: $start, end: $end) {
+const MOVIES_QUERY = gql`
+   query($skip: Int!, $limit: Int!){
+      movies(skip: $skip, limit: $limit) {
          title
          director
          rating
@@ -20,7 +20,7 @@ const moviesQuery = gql`
    }
 `
 
-const movieListQuery = gql`
+const LIST_QUERY = gql`
    {
       movies {
          title
@@ -32,6 +32,6 @@ const movieListQuery = gql`
    }
 `;
 
-const countQuery = gql`{ count }`;
+const COUNT_QUERY = gql`{ count }`;
 
-export { reviewQuery, moviesQuery, movieListQuery, countQuery };
+export { REVIEW_QUERY, MOVIES_QUERY, LIST_QUERY, COUNT_QUERY };

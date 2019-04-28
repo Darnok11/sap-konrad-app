@@ -1,6 +1,6 @@
 import  React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
-import { checkState } from '../js/helperFunctions';
+import { checkAll } from '../js/helperFunctions';
 import LabelActors from './LabelActors';
 
 
@@ -88,10 +88,10 @@ class AddMovieForm extends Component {
             <div>
                <form className="sap-addmovie-form" onSubmit={e => {
                   e.preventDefault();
-                  if(checkState(input)) {
+                  if(checkAll(input)) {
                      // add movie
-                     console.log("its ok!");
                      createMovie({ variables: input });
+                     console.log("its ok!");
                   } else {
                      console.log("fail");
                      //display message
