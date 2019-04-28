@@ -11,18 +11,16 @@ const text_en = {
    "no_review": "No review for this movie",
    "add_movie": "Add Movie",
    "get_list": "Get List",
-   "not_given": "not given",
+   "not_given": "Not given",
    "wrong_format": "Wrong format",
-   "wrong_title": "Wrong title. Only letter and spaces and length 3 < title < 50.",
-   "wrong_actor_name": "Wrong actor name. Only letter and spaces and length 3 < actor < 50.",
-   "wrong_rating": "Wrong rating. Should be double precision number < 5 and number > 0.",
-   "out_of_range": "out of range",
+   "wrong_title": "Wrong title. From 3 to 50 letters only.",
+   "wrong_rating": "Wrong rating: Bigger than 0.00 and smaller than 5.00.",
+   "out_of_range": "Out of range",
 
    "next": "Next",
    "prev": "Prev",
    "cancel": "Cancel",
    "delete": "Delete",
-
    "add_review": "Add review",
 
    "prev_alert": "You are at the first page",
@@ -34,9 +32,10 @@ const text_en = {
    "pls_load_file": "Please load movie",
 
    "submit_message": "Your movie was added!",
+   "submit_fail": "Please fill all required fields.\n Title, director, actors names should be from 3 to 50 characters long and only letters.\n 0.00 < rating < 5.00.\n Don't forget to add movie.",
    "go_back": "Go back",
    "not_found": "Not found",
-   "loading": "loading..."
+   "loading": "Loading..."
 
 };
 

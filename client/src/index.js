@@ -6,8 +6,6 @@
  * @param {ApolloProvider} - to implement graphql queries
  * @param {InMemoryCache} - need cache to update data storage after mutation.
  */
-
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './css/index.css';

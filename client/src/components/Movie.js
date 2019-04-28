@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import AddReview from './AddReview';
 import '../css/Movie.css';
 import { graphql, compose } from 'react-apollo';
-import { deleteMovieMutation, updateReviewMutation } from '../graphql/mutations';
+import { DELETE_MOVIE, UPDATE_MOVIE } from '../graphql/mutations';
 import { reviewQuery } from '../graphql/queries';
 
 
@@ -149,7 +149,7 @@ class Movie extends Component {
 }
 
 export default compose(
-   graphql(deleteMovieMutation, {name: 'deleteMovieMutation'}),
-   graphql(updateReviewMutation, {name: 'updateReviewMutation'}),
+   graphql(DELETE_MOVIE, {name: 'DELETE_MOVIE'}),
+   graphql(UPDATE_MOVIE, {name: 'UPDATE_MOVIE'}),
    graphql(reviewQuery, {name: 'reviewQuery'}),
 )(Movie);

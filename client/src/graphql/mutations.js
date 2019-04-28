@@ -1,7 +1,9 @@
+// NOTE: You should make your mutation results have all of the data necessary to update the queries previously fetched.
+
 import { gql } from 'apollo-boost';
 
 
-const createMovieMutation = gql`
+const ADD_MOVIE = gql`
    mutation(
       $title: String!,
       $director: String!,
@@ -25,7 +27,7 @@ const createMovieMutation = gql`
 `;
 
 
-const deleteMovieMutation = gql`
+const DELETE_MOVIE = gql`
    mutation($id: ID!) {
       deleteMovie(id: $id) {
          id
@@ -39,7 +41,7 @@ const deleteMovieMutation = gql`
 
 `;
 
-const updateReviewMutation = gql`
+const UPDATE_MOVIE = gql`
    mutation($id: ID!, $review: String!) {
       updateReview(id: $id, review: $review) {
          id
@@ -49,4 +51,4 @@ const updateReviewMutation = gql`
 `;
 
 
-export { createMovieMutation, deleteMovieMutation, updateReviewMutation };
+export { ADD_MOVIE, DELETE_MOVIE, UPDATE_MOVIE };
