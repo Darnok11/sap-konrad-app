@@ -53,7 +53,7 @@ const root = {
       const movie_to_remove = Movie.findOneAndRemove( {id: args.id}).exec();
 
       if (!movie_to_remove) {
-         throw new Error('Could not remove');
+         console.log("Could not remove");
       }
 
       return movie_to_remove;

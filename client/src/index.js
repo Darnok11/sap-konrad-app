@@ -12,23 +12,23 @@ import Copyrights from './components/Copyrights';
 // Apollo + GraphQl
 import { InMemoryCache } from 'apollo-boost';
 import ApolloCient from 'apollo-boost';
-import { ApolloProvider, Query } from 'react-apollo';
-import { gql } from 'apollo-boost';
+import { ApolloProvider } from 'react-apollo';
+import text_en from './resources/text_en';
+
 const cache = new InMemoryCache();
 const client = new ApolloCient({
    uri: 'http://localhost:4000/graphql',
    cache
 });
 
-
 const routing = (
    <Router>
       <ApolloProvider client={client}>
       <div>
          <Switch>
-            <Route exact path="/" component={App} />;
+            <Route exact path="/" render={() => <App text={text_en}/>}/>;
             <Route exact path="/get-list" component={GetList} />
-            <Route exact path="/add-movie" component={AddMovie} />
+            <Route exact path="/add-movie" render={() => <AddMovie text={text_en}/>} />
             <Route component={NotFound} />
          </Switch>
          <Copyrights />

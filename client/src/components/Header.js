@@ -4,6 +4,7 @@ import '../css/header.css';
 
 class Header extends React.Component {
    render() {
+      const { text } = this.props;
       return (
          <div className="sap-header-buttons" >
             <Link to="/add-movie"><button>{text.add_movie}</button></Link>

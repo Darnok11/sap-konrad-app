@@ -23,8 +23,6 @@ const devURI = "mongodb://localhost:27017/db?connectTimeoutMS=1000&bufferCommand
 mongoose.connect(devURI, {
    useNewUrlParser: true,
    socketTimeoutMS: 0,
-   keepAlive: true,
-   reconnectTries: 30
 });
 
 //check connection

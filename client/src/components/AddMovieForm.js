@@ -2,7 +2,7 @@ import  React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import { checkAll } from '../js/helperFunctions';
 import LabelActors from './LabelActors';
-
+import { ADD_MOVIE } from '../graphql/mutations';
 
 class AddMovieForm extends Component {
 
@@ -73,7 +73,7 @@ class AddMovieForm extends Component {
    render() {
       const { title, director, rating, actor, actors, submit_message } = this.state;
 
-      const { text, ADD_MOVIE } = this.props;
+      const { text } = this.props;
       const input = {
          title: title + "",
          director: director + "",
@@ -83,7 +83,6 @@ class AddMovieForm extends Component {
 
       return(
          <Mutation mutation={ADD_MOVIE}>
-
             {(createMovie, {data}) => (
             <div>
                <form className="sap-addmovie-form" onSubmit={e => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import AddReview from './AddReview';
 import '../css/Movie.css';
-import { DELETE_MOVIE_MUTATION, UPDATE_MOVIE_MUTATION } from '../graphql/mutations';
+import { DELETE_MOVIE, UPDATE_MOVIE } from '../graphql/mutations';
 import { REVIEW_QUERY } from '../graphql/queries';
 
 
@@ -100,6 +100,10 @@ class Movie extends React.Component {
          </div>
 
       </div>;
+   }
+
+   componentWillUnmount() {
+      console.log("siema");
    }
 }
 

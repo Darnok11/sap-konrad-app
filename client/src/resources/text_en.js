@@ -39,4 +39,4 @@ const text_en = {
 
 };
 
-export { text_en };
+export default text_en;

@@ -1,16 +1,19 @@
 import { gql } from 'apollo-boost';
 
+
 const REVIEW_QUERY = gql`
    query($id: ID!){
       movies(id: $id) {
+         id
          review
       }
    }
 `;
 
+// same return types as in ADD_MOVIE
 const MOVIES_QUERY = gql`
    query($skip: Int!, $limit: Int!){
-      movies(skip: $skip, limit: $limit) {
+      movies(start: $skip, end: $limit) {
          title
          director
          rating

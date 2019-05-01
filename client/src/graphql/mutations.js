@@ -1,6 +1,7 @@
-// NOTE: You should make your mutation results have all of the data necessary to update the queries previously fetched.
-
 import { gql } from 'apollo-boost';
+// NOTE: To force automatic update of apollo cache we should keep returning values same as queries => You should make your mutation results have all of the data necessary to update the queries previously fetched. If you want to be more presize use apollo fragments "to share fields between the query and the mutation that affects it"!
+// NOTE: However I would like to use direct cache access
+
 
 
 const ADD_MOVIE = gql`
@@ -16,7 +17,6 @@ const ADD_MOVIE = gql`
          rating: $rating,
          actors: $actors,
       }) {
-         id
          title
          director
          rating
@@ -30,7 +30,6 @@ const ADD_MOVIE = gql`
 const DELETE_MOVIE = gql`
    mutation($id: ID!) {
       deleteMovie(id: $id) {
-         id
          title
          director
          rating
