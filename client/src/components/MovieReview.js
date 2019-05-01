@@ -1,12 +1,13 @@
-import React, {Component} from 'react';
-import '../css/AddReview.css';
+import React from 'react';
+import { Mutation } from 'react-apollo';
 
 
-class AddReview extends Component {
+
+class MovieReview extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: 'Please write an essay about your favorite DOM element.'
+      value: this.props.review || "no review yet"
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -14,10 +15,11 @@ class AddReview extends Component {
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value});
+    this.setState({ value: event.target.value });
   }
 
   handleSubmit(event) {
+     //here mutation
     alert('An essay was submitted: ' + this.state.value);
     event.preventDefault();
   }
@@ -25,16 +27,17 @@ class AddReview extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <label> 
+        <label>
           <textarea
             className="sap-movie-review-textarea"
             value={this.state.value} onChange={this.handleChange} />
         </label>
         <br />
-        <input type="submit" value="Submit" />
+        <input type="submit" value="Edit" />
       </form>
     );
   }
 }
 
-export default AddReview;
+
+export default MovieReview;

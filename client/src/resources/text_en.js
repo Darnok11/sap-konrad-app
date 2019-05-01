@@ -4,8 +4,7 @@ const text_en = {
    "director": "Director",
    "actors": "Actors",
    "created_at": "Created at",
-   "see_review": "See review",
-   "hide_review": "Hide review",
+   "show_hide_review": "See/Hide review",
 
    "no_movies": "There are no movies yet",
    "no_review": "No review for this movie",
@@ -18,10 +17,10 @@ const text_en = {
    "out_of_range": "Out of range",
 
    "next": "Next",
-   "prev": "Prev",
+   "prev": "Previous",
    "cancel": "Cancel",
-   "delete": "Delete",
-   "add_review": "Add review",
+   "delete": "Delete Movie",
+   "change_review": "Change review",
 
    "prev_alert": "You are at the first page",
    "next_alert": "No more pages to load",
@@ -35,7 +34,8 @@ const text_en = {
    "submit_fail": "Please fill all required fields.\n Title, director, actors names should be from 3 to 50 characters long and only letters.\n 0.00 < rating < 5.00.\n Don't forget to add movie.",
    "go_back": "Go back",
    "not_found": "Not found",
-   "loading": "Loading..."
+   "loading": "Loading...",
+   "error": "Error. Please try later"
 
 };
 

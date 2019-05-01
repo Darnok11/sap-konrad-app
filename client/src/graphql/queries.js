@@ -14,10 +14,12 @@ const REVIEW_QUERY = gql`
 const MOVIES_QUERY = gql`
    query($skip: Int!, $limit: Int!){
       movies(start: $skip, end: $limit) {
+         id
          title
          director
          rating
          actors
+         review
          createdAt
       }
    }
@@ -26,10 +28,12 @@ const MOVIES_QUERY = gql`
 const LIST_QUERY = gql`
    {
       movies {
+         id
          title
          director
          rating
          actors
+         review
          createdAt
       }
    }

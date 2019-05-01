@@ -1,14 +1,13 @@
 import React from 'react';
-// Components
 import Header from './Header';
 import Movies from './Movies';
 import Footer from './Footer';
 import Copyrights from './Copyrights';
-// import useFetch from '../js/useFetch';
 import { Query, withApollo } from 'react-apollo';
-
 import {COUNT_QUERY} from '../graphql/queries';
 import '../css/app.css';
+
+
 
 class App extends React.Component {
    constructor(props) {
@@ -20,7 +19,7 @@ class App extends React.Component {
 
    render() {
       const { text } = this.props;
-      // TODO: text and count should be in cache!
+
       return (
          <div className="sap-app">
             <Header text={text} />
@@ -31,7 +30,7 @@ class App extends React.Component {
                      return <p>{text.loading}</p>
                   }
                   if (error) {
-                     return <p>{data.error.message}</p>
+                     return <p>{data.error}</p>
                   }
                   if (!data.count) {
                      return <p>{text.no_movies}</p>;
@@ -54,5 +53,4 @@ class App extends React.Component {
 }
 
 
-// <Movies count={data.count} text={text} />
 export default withApollo(App);

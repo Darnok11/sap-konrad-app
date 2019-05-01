@@ -1,6 +1,6 @@
 const express = require('express');
 const schema = require('./graphql/schema');
-const root =require('./graphql/root');
+const root = require('./graphql/root');
 const mongoose = require("mongoose");
 const graphqlHTTP = require('express-graphql');
 const fs = require('fs');

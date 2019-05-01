@@ -9,7 +9,7 @@ const ADD_MOVIE = gql`
       $title: String!,
       $director: String!,
       $rating: Float!,
-      $actors: [String]!,
+      $actors: [String!]!,
    ) {
       createMovie(input: {
          title: $title,
@@ -17,10 +17,12 @@ const ADD_MOVIE = gql`
          rating: $rating,
          actors: $actors,
       }) {
+         id
          title
          director
          rating
          actors
+         review
          createdAt
       }
    }
@@ -30,10 +32,12 @@ const ADD_MOVIE = gql`
 const DELETE_MOVIE = gql`
    mutation($id: ID!) {
       deleteMovie(id: $id) {
+         id
          title
          director
          rating
          actors
+         review
          createdAt
       }
    }
@@ -44,7 +48,12 @@ const UPDATE_MOVIE = gql`
    mutation($id: ID!, $review: String!) {
       updateReview(id: $id, review: $review) {
          id
+         title
+         director
+         rating
+         actors
          review
+         createdAt
       }
    }
 `;

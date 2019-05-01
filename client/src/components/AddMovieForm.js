@@ -15,12 +15,13 @@ class AddMovieForm extends Component {
          director: "",
          actor: "",
          actors: [],
-         submit_message: ""
+
+         submit_message: this.props.text.submit_fail
       };
 
       /** this binding */
       this.handleChange = this.handleChange.bind(this);
-      // this.handleSubmit = this.handleSubmit.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
       this.addActor = this.addActor.bind(this);
       this.removeActor = this.removeActor.bind(this);
    }
@@ -40,6 +41,37 @@ class AddMovieForm extends Component {
       this.setState({
          file_name: selectorFiles[0].name
       });
+   }
+
+   handleSubmit(createMovie) {
+      return e => {
+         e.preventDefault();
+
+         const { title, director, rating, actor, actors, submit_message } = this.state;
+
+
+         const { text } = this.props;
+         const input = {
+            title: title + "",
+            director: director + "",
+            rating: +rating,
+            actors: actors
+         };
+
+         console.log(createMovie);
+
+         if(checkAll(input)) {
+            // add movie
+            createMovie({ variables: input });
+            console.log("its ok!");
+         } else {
+            console.log("fail");
+            //display message
+            this.setState({
+               submit_message: text.submit_fail
+            });
+         } // else
+      }
    }
 
    addActor(e) {
@@ -74,31 +106,32 @@ class AddMovieForm extends Component {
       const { title, director, rating, actor, actors, submit_message } = this.state;
 
       const { text } = this.props;
-      const input = {
+      let input = {
          title: title + "",
          director: director + "",
          rating: +rating,
          actors: actors
       };
 
+
       return(
-         <Mutation mutation={ADD_MOVIE}>
-            {(createMovie, {data}) => (
+         <Mutation mutation={ADD_MOVIE} >
+            {(createMovie, { data, loading, error }) => (
             <div>
-               <form className="sap-addmovie-form" onSubmit={e => {
-                  e.preventDefault();
-                  if(checkAll(input)) {
-                     // add movie
-                     createMovie({ variables: input });
-                     console.log("its ok!");
-                  } else {
-                     console.log("fail");
-                     //display message
-                     this.setState({
-                        submit_message: text.submit_fail
-                     });
-                  } // else
-               }}>
+               <form className="sap-addmovie-form"
+                  onSubmit={(e) => {
+                     e.preventDefault();
+                     if(checkAll(input)) {
+                        console.log("ok!");
+                        createMovie({ variables: input });
+
+                        this.setState({ submit_message: "" });
+                     } else {
+
+                        console.log("not ok");
+                     }
+
+                  }}>
 
                   <label className="sap-button"> {text.load_file} <br />
                      <input
@@ -135,10 +168,16 @@ class AddMovieForm extends Component {
                      handlerHandleChange={this.handleChange}/> <br/>
 
                   <input type="submit" value="Submit"/>
+                  <p className="sap-addmovie-message-true">
+                     {loading && text.loading}
+                     {error && text.error}
+                  </p>
                </form>
 
                <div className="sap-addmovie-message">
-                  <p className={"sap-addmovie-message-true"}>{submit_message}</p>
+                  <p className="sap-addmovie-message-true">
+                     {submit_message}
+                  </p>
                </div>
             </div>
          )}

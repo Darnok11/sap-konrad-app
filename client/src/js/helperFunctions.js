@@ -56,9 +56,8 @@ function checkRating( rating ) {
 function checkAll( input ) {
    const title = input.title || "";
    const rating = input.rating || 0;
-   const createdAt = input.createdAt || "";
-
-   return (checkTitle(title) && checkRating(rating) && checkDate(createdAt));
+   
+   return (checkTitle(title) && checkRating(rating));
 }
 
 

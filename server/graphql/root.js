@@ -1,5 +1,5 @@
 const schema = require('./schema');
-const Movie = require('../model/movie'); //mongodb model
+const Movie = require('../mongoose_model/movie'); //mogoose model
 const { generateSubstringOfISODate, generateId } = require('../helperFunctions'); // helper functions
 
 
@@ -17,7 +17,8 @@ const root = {
    movies: function(args) {
       if (args.hasOwnProperty('id')) {
 
-            return [Movie.findOne({ id: args.id }, (err, doc) => console.log("No such id: " + args.id))];
+         return [Movie.findOne({ id: args.id }, (err, doc) => console.log("No such id: " + args.id)
+         )];
 
       } else if (args.hasOwnProperty('start') && args.hasOwnProperty('end')) {
 
