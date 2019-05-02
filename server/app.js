@@ -19,8 +19,9 @@ const prodURI = "mongodb+srv://konrazem:test123@sap-konrad-app-atlas-cluster-gqp
  */
 const devURI = "mongodb://localhost:27017/db?connectTimeoutMS=1000&bufferCommands=false";
 
-// connect to database with timeout function
+// connect to database with timeout function. useFindAndModify for depractication warning
 mongoose.connect(devURI, {
+   useFindAndModify: false,
    useNewUrlParser: true,
    socketTimeoutMS: 0,
 });
