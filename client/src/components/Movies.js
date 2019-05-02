@@ -66,28 +66,30 @@ class Movies extends React.Component {
       // if not than indicate last movie on current page.
       let limit = (this.state.current_page === struct.pages) ? struct.count : skip + struct.movies_on_page;
 
-      console.log("SKIP --->  " + skip);
-      console.log("LIMIT --->  " + limit);
-
       return (
       <Query query={MOVIES_QUERY}  variables={{skip: skip, limit: limit}}>
          {({ data, loading, error }) => {
-
+            let movies = [];
             if (loading) return <p>{text.loading}</p>;
             //A runtime error with graphQLErrors and networkError properties
             if (error) return <p>{error.message}</p>;
             //NOTE: this makes adding to cache obtained new data, which means we render all requested movies in 'history' of cache (skip, limit will not do the job). We need to somehow ask for last 3 records to cache ???
-            //NOTE: data object do not have prototype nor constructor reference (??)
-            const movies = data.movies.slice(skip, limit);
+
+            if (typeof data !== "undefined" ) {
+               //NOTE: data object do not have prototype nor constructor reference (??)
+               data.movies ? movies = data.movies.slice(-struct.movies_on_page) : movies = [];
+            }
 
             return <div>
-                 {movies.map( (movie, index) =>
-                    <Movie
-                    key={"movie-" + index}
-                    movie={movie}
-                    last={index + 1 === limit - skip}
-                    text={text} />
-                 )}
+                 {movies.map( (movie, index) => {
+                    return <Movie
+                       key={"movie-" + index}
+                       movie={movie}
+                       last={index + 1 === limit - skip}
+                       text={text} />
+                 }
+
+              )}
                  <Footer
                     text={text}
                     loadNext={this.loadNext}

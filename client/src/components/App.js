@@ -21,7 +21,7 @@ class App extends React.Component {
       const { text } = this.props;
 
       return (
-         <div className="sap-app">
+         <div className="App">
             <Header text={text} />
 
             <Query query={COUNT_QUERY}>
@@ -44,7 +44,6 @@ class App extends React.Component {
                      text={text}
                      pages={pages}
                      />
-
                }}
             </Query>
          </div>

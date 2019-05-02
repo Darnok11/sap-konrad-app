@@ -1,3 +1,9 @@
+/**
+ * Use of pagination explenation:
+ * In case we have too many items to load, and it would overload our backend, the connection, or the client to load all of the items at once. This is a performance concern.
+ */
+
+
 // React
 import React from 'react';
 import ReactDOM from 'react-dom';
