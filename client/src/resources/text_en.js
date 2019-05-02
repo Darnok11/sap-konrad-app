@@ -35,7 +35,8 @@ const text_en = {
    "go_back": "Go back",
    "not_found": "Not found",
    "loading": "Loading...",
-   "error": "Error. Please try later"
+   "error": "Error. Please try later",
+   "updated_review": "Review was updated!"
 
 };
 

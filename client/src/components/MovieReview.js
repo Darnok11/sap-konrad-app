@@ -1,13 +1,13 @@
 import React from 'react';
 import { Mutation } from 'react-apollo';
-
+import { UPDATE_MOVIE } from '../graphql/mutations';
 
 
 class MovieReview extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: this.props.review || "no review yet"
+      review: this.props.movie.review || "no review yet"
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -15,26 +15,45 @@ class MovieReview extends React.Component {
   }
 
   handleChange(event) {
-    this.setState({ value: event.target.value });
+    this.setState({ review: event.target.value });
   }
 
   handleSubmit(event) {
      //here mutation
-    alert('An essay was submitted: ' + this.state.value);
+    alert('An essay was submitted: ' + this.state.review);
     event.preventDefault();
   }
 
   render() {
+
+    const { movie, text } = this.props;
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          <textarea
-            className="sap-movie-review-textarea"
-            value={this.state.value} onChange={this.handleChange} />
-        </label>
-        <br />
-        <input type="submit" value="Edit" />
-      </form>
+      <Mutation mutation={UPDATE_MOVIE} onCompleted={ ( data ) => {
+
+            alert(text.updated_review)
+
+         }}>
+      {(updateReview, { data, loading, error }) => {
+
+         return (
+            <form onSubmit={ (e) => {
+                  e.preventDefault();
+
+                  updateReview({ variables: { id: movie.id, review: this.state.review }});
+            }}>
+              <label>
+                <textarea
+                  className="sap-movie-review-textarea"
+                  value={this.state.review} onChange={this.handleChange} />
+              </label>
+              <br />
+              <input type="submit" value="Edit" />
+              <p>{ loading && text.loading }
+                 { error && error.message }</p>
+            </form>
+         );
+      }}
+      </Mutation>
     );
   }
 }
