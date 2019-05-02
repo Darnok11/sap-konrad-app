@@ -20,9 +20,9 @@ const root = {
          return [Movie.findOne({ id: args.id }, (err, doc) => console.log("No such id: " + args.id)
          )];
 
-      } else if (args.hasOwnProperty('start') && args.hasOwnProperty('end')) {
+      } else if (args.hasOwnProperty('skip') && args.hasOwnProperty('per_page')) {
 
-        return Movie.find({}).skip(args.start).limit(args.end);
+        return Movie.find({}).skip(args.skip).limit(args.per_page);
 
       } else {
          // return all movies sorted ascending by review

@@ -35,7 +35,7 @@ const schema = buildSchema(`
    type Query {
       # if id given return one Movie, if no arguments than return sorted list of Movies by rating
 
-      movies(start: Int, end: Int, id: ID): [Movie]
+      movies(skip: Int, per_page: Int, id: ID): [Movie]
       count: Int
    }
 `);

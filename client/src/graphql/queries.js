@@ -12,8 +12,8 @@ const REVIEW_QUERY = gql`
 
 // same return types as in ADD_MOVIE
 const MOVIES_QUERY = gql`
-   query($skip: Int!, $limit: Int!){
-      movies(start: $skip, end: $limit) {
+   query($skip: Int!, $per_page: Int!){
+      movies(skip: $skip, per_page: $per_page) {
          id
          title
          director
