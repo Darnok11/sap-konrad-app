@@ -81,7 +81,6 @@ class Movies extends React.Component {
 
                return <p>{text.no_movies}</p>;
             }
-            console.log(movies);
 
             return (<div>
                {movies.map( (movie, index) =>  <Movie key={"movie-" + index} movie={movie} last={index === struct.per_page - 1} text={text} />)}

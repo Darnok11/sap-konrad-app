@@ -1,6 +1,9 @@
 import React from 'react';
 import MovieReview from './MovieReview';
+import { ApolloConsumer, Mutation, withApollo } from 'react-apollo';
+import { DELETE_MOVIE } from '../graphql/mutations';
 import '../css/Movie.css';
+import { MOVIES_QUERY } from '../graphql/queries';
 
 
 class Movie extends React.Component {
@@ -8,6 +11,7 @@ class Movie extends React.Component {
       super(props);
 
       this.state = { show_review: false };
+
       this.handleShowReview = this.handleShowReview.bind(this);
    }
 
@@ -53,13 +57,38 @@ class Movie extends React.Component {
 
                   </li>
                   <li className="sap-movie-buttons">
-                     <button onClick={this.handleChangeDeleteMovie}> {text.delete} </button>
+                     <DeleteMovie movie_to_remove={movie.id} text={text} />
                   </li>
                </ul>
             </div>
          </div>);
    }
 
+}
+
+const DeleteMovie = ( props ) => {
+
+   const { text, movie_to_remove } = props;
+   return (
+      <Mutation mutation={ DELETE_MOVIE } onCompleted={( data ) => {
+            console.log("Movie was removed: ", data);
+         }} update={(cache, { data }) => {
+            // const { data.movies } = cache.readQuery({ query: MOVIES_QUERY }); 
+         }}>
+         {(deleteMovie, { data: { movie } = {}, loading, error }) => (
+            <div className="sap-movie-mutation">
+               <button onClick={(e) => {
+                     e.preventDefault();
+                     deleteMovie({ variables: { id: movie_to_remove } });
+
+                  }}> {text.delete} </button>
+                  <p className="sap-movie-mutation-message">
+                     {loading && text.loading} {error && text.error}
+                  </p>
+            </div>
+         )}
+      </Mutation>
+   );
 }
 
 
@@ -78,4 +107,4 @@ const MovieListActors = ( props ) => {
 
 
 
-export default Movie;
+export default withApollo(Movie);
