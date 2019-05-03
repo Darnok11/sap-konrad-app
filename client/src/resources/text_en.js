@@ -31,7 +31,7 @@ const text_en = {
    "pls_load_file": "Please load movie",
 
    "submit_message": "Your movie was added!",
-   "submit_fail": "Please fill all required fields.\n Title, director, actors names should be from 3 to 50 characters long and only letters.\n 0.00 < rating < 5.00.\n Don't forget to add movie.",
+   "submit_fail": "Please fill all required fields.\n Title, director, actors names should be from 3 to 50 characters long and only letters.\n Rating must be between 1 and 10.\n Don't forget to add movie.",
    "go_back": "Go back",
    "not_found": "Not found",
    "loading": "Loading...",

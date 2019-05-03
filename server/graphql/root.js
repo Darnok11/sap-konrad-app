@@ -1,6 +1,11 @@
-const schema = require('./schema');
-const Movie = require('../mongoose_model/movie'); //mogoose model
-const { generateSubstringOfISODate, generateId } = require('../helperFunctions'); // helper functions
+// const schema = require('./schema');
+const Movie = require('../mongoose/movie'); //mogoose model
+const {
+   generateSubstringOfISODate,
+   generateId,
+   sortObjectByKey
+} = require('../helperFunctions'); // helper functions
+
 
 
 /**
@@ -11,76 +16,79 @@ const root = {
 
    /**
     * 3 methods for finding movies
-    * @param  {Object} args [description]
-    * @return {[Movie, [Movie], [Movie]]}  return one movie if id given, all movies sorted by review if args empty and some movies if start and end arguments are given
+    * @param  {Object} args arguments in graphql query/mutation
+    * @return {[Movie]}  if id given - array with one Movie, if skip and per_page - array of Movies per page, no arguments - array of all Movies sorted by review with descending order.
     */
    movies: function(args) {
       if (args.hasOwnProperty('id')) {
-
-         return [Movie.findOne({ id: args.id }, (err, doc) => console.log("No such id: " + args.id)
-         )];
+         // return one movie
+         return [Movie.findOne({ id: args.id }, (err, doc) => console.log("No such id: " + args.id))];
 
       } else if (args.hasOwnProperty('skip') && args.hasOwnProperty('per_page')) {
-
-        return Movie.find({}).skip(args.skip).limit(args.per_page);
+         // return movies for page
+         return Movie.find({}).skip(args.skip).limit(args.per_page);
 
       } else {
-         // return all movies sorted ascending by review
-         return Movie.find({}).sort('review');
+         // if no arguments given return all movies sorted by rating with descending order
+         const res = Movie.find({}).sort({
+            rating: -1
+         }).exec();
+         return Movie.find({}).sort({
+            rating: -1
+         });
       }
    },
 
    /**
     * Add new movie
-    * @param  {Movie} input without id createdAt
-    * @return {[type]}       created Movie
+    * @param  {Object} input in object title and rating are required. Can be also director and actors.
+    * @return {Movie}       created Movie
     */
-   createMovie: function ({input}) {
-      // Create a random id for our "database".
-      input.id = generateId();
-      input.createdAt = generateSubstringOfISODate();
+   createMovie: function({ input }) {
+      let date = new Date().toISOString();
+
+      // Create a random id with "crypto" and current date.
+      input.id = require('crypto').randomBytes(10).toString('hex');
+      input.createdAt = date.substring(0, date.length - 1);
+      // IDEA:  can be only intiger values!
+      input.rating = input.rating.toFixed();
 
       let movie = new Movie(input);
-      return movie.save(); // save to collection movie
+      return movie.save(); // insert to collection movies
    },
+
 
    /**
     * Delete movie by id
-    * @param  {Object} args movie id
-    * @return {Movie}  Deleted movie
+    * @param  {Object} args id must be given
+    * @return {Movie}      deleted movie
     */
    deleteMovie: function(args) {
-      //id must be given
-      const movie_to_remove = Movie.findOneAndRemove( {id: args.id}).exec();
+      const removedMovie = Movie.findOneAndRemove({
+         id: args.id
+      }).exec();
 
-      if (!movie_to_remove) {
-         console.log("Could not remove");
-      }
-
-      return movie_to_remove;
+      return removedMovie;
    },
 
    /**
     * Search for movie by id and update its review
     * @param  {Object} args movie id
-    * @return {Movie} mongodb model
+    * @return {Movie} updated Movie
     */
    updateReview: function(args) {
-      return Movie.findOneAndUpdate(
-         {
-            id: args.id
-         },
-         {
-            $set: { review: args.review }
-         },
-         {
-            new: true
-         }).catch( err => new Error(err));
+      return Movie.findOneAndUpdate({ id: args.id }, {
+         $set: {
+            review: args.review
+         }
+      }, {
+         new: true
+      }).catch(err => new Error(err));
    },
 
    /**
-    * Need to show number of pages in APP
-    * @return {int}  Movie collection size
+    * Get number of movies in collection movies
+    * @return {Number}  Movie collection size
     */
    count: () => Movie.estimatedDocumentCount()
 };

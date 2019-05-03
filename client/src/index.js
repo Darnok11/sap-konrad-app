@@ -21,23 +21,50 @@ import ApolloCient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 import text_en from './resources/text_en';
 
+/**
+ *  English interface
+ */
+let text = text_en;
+
+
+// NOTE: I would use React.Context for text but then on every cmp which use text I need to give Consumer cmp ?!!
+
 const cache = new InMemoryCache();
 const client = new ApolloCient({
    uri: 'http://localhost:4000/graphql',
    cache
 });
 
+
 const routing = (
    <Router>
       <ApolloProvider client={client}>
       <div>
          <Switch>
-            <Route exact path="/" render={() => <App text={text_en}/>}/>;
-            <Route exact path="/get-list" component={GetList} />
-            <Route exact path="/add-movie" render={() => <AddMovie text={text_en}/>} />
-            <Route component={NotFound} />
+            <Route exact path="/" render={() => (
+
+               <App text={text}/>
+
+            )} />;
+            <Route exact path="/get-list" render={() => (
+
+               <GetList text={text} />
+
+            )} />
+            <Route exact path="/add-movie" render={() => (
+
+               <AddMovie text={text}/>
+
+            )} />
+            <Route render={ () => (
+
+               <NotFound text={text} />
+
+            )} />
          </Switch>
+
          <Copyrights />
+
       </div>
       </ApolloProvider>
    </Router>

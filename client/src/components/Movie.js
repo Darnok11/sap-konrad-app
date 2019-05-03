@@ -1,6 +1,7 @@
 import React from 'react';
 import MovieReview from './MovieReview';
 import DeleteMovie from './DeleteMovie';
+import MovieListActors from './MovieListActors';
 import '../css/Movie.css';
 
 
@@ -33,27 +34,25 @@ class Movie extends React.Component {
          <div className={last ? "sap-movie last-movie" : "sap-movie"}>
             <div className="sap-movie-list">
                <ul>
-                  <li><span className="sap-movie-list-number bold"> {movie.rating}</span></li>
-                  <li><span className="bold">{text.title}:</span>
-                     {movie.title}
+                  <li><span className="sap-movie-list-number bold"> {movie.rating || text.not_given}</span></li>
+                  <li><span className="bold">{text.title + ": "}</span>
+                     {movie.title || text.not_given}
                   </li>
-                  <li><span className="bold">{text.director}:</span>
-                     {movie.director}
+                  <li><span className="bold">{text.director + ": "}</span>
+                     {movie.director || text.not_given }
                   </li>
-                  <li><span className="bold">{text.actors}:</span>
-
-                     <MovieListActors actors={movie.actors} />
-
+                  <li><span className="bold">{text.actors + ": "}</span>
+                     {movie.actors ? <MovieListActors actors={movie.actors} /> : text.not_given}
                   </li>
-                  <li><span className="bold">{text.created_at}:</span>
-                     {movie.createdAt.replace('T', ' ')}
+                  <li><span className="bold">{text.created_at + ": "}</span>
+                     {movie.createdAt.replace('T', ' ') || text.not_given}
                   </li>
                   <li className="sap-movie-review-form">
                      <button onClick={this.handleShowReview}>{text.show_hide_review}</button>
 
                      { this.state.show_review &&
 
-                        <MovieReview movie={movie} text={text} /> 
+                        <MovieReview movie={movie} text={text} />
 
                      }
 
@@ -68,19 +67,6 @@ class Movie extends React.Component {
          </div>);
    }
 
-}
-
-
-const MovieListActors = ( props ) => {
-   return (
-      <div>
-         {props.actors.map( (actor, index) =>
-            <span className="sap-movie-actor" key={"actor-" + index}>
-               { index + 1 === props.actors.length ? actor : actor + "," }
-            </span>
-         )}
-      </div>
-   );
 }
 
 

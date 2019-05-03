@@ -9,18 +9,18 @@ const schema = buildSchema(`
 
    input MovieInput {
       title: String!
-      director: String!
+      director: String
       rating: Float!
-      actors: [String]!
+      actors: [String]
    }
 
 
    type Movie {
       id: ID!
       title: String!
-      director: String!
+      director: String
       rating: Float!
-      actors: [String]!
+      actors: [String]
       createdAt: String!
       review: String
    }

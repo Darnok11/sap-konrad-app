@@ -43,7 +43,7 @@ function checkDate( createdAt ) {
  * @return {Boolean}        return true if ok
  */
 function checkRating( rating ) {
-   return (typeof rating === 'number' && 5 > rating && rating > 0);
+   return (typeof rating === 'number' && 10 >= rating && rating >= 1);
 }
 
 
@@ -56,7 +56,7 @@ function checkRating( rating ) {
 function checkAll( input ) {
    const title = input.title || "";
    const rating = input.rating || 0;
-   
+
    return (checkTitle(title) && checkRating(rating));
 }
 

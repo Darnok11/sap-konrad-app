@@ -20,7 +20,9 @@ const prodURI = "mongodb+srv://konrazem:test123@sap-konrad-app-atlas-cluster-gqp
 const devURI = "mongodb://localhost:27017/db?connectTimeoutMS=1000&bufferCommands=false";
 
 // connect to database with timeout function. useFindAndModify for depractication warning
+// useCreateIndex: collection.ensureIndex is deprecated. Use createIndexes instead. #6890
 mongoose.connect(devURI, {
+   useCreateIndex: true,
    useFindAndModify: false,
    useNewUrlParser: true,
    socketTimeoutMS: 0,
@@ -28,9 +30,9 @@ mongoose.connect(devURI, {
 
 //check connection
 const conn = mongoose.connection;
-conn.on('connected', () => console.log('Connected :)'));
+conn.on('connected', () => console.log('connected to mongo...'));
 conn.on('error', (err) =>  console.log(err) );
-conn.on('disconnected', () => console.log('Disconnected :('));
+conn.on('disconnected', () => console.log('Disconnected from MongoDB'));
 
 
 // gridfs-stream variable for file streaming
@@ -40,7 +42,7 @@ let gfs;
 Event listener callback fn fired when connected to db. The db must already be opened before calling createWriteStream or createReadStream.
  */
 mongoose.connection.once('open', () => {
-   console.log('Opened');
+   console.log('connection opened');
    gfs = Grid(conn.db, mongoose.mongo);
 
 });
@@ -58,7 +60,7 @@ app.use('/graphql', graphqlHTTP({
 }));
 
 app.listen(4000, () => {
-   console.log('listen...');
+   console.log('listen express server...');
 });
 
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Copyrights from './Copyrights';
 import "../css/Notfound.css";
 
 class NotFound  extends Component {
@@ -13,18 +14,13 @@ class NotFound  extends Component {
                <p>{this.props.text.not_found}</p>
             </div>
             <div className="App-footer-buttons">
-               <Copyright />
+               <Copyrights />
             </div>
          </div>
       );
    }
 }
 
-const Copyright = function() {
-   const date = new Date();
-
-   return (<div className="App-copyright" id="copyright"> &#xA9; Konrad <span role="img" aria-label="Mushroom">🍄</span> {date.getFullYear()}</div>);
-}
 
 
 export default NotFound;
