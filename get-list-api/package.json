@@ -1,0 +1,26 @@
+{
+  "name": "get-list-api",
+  "version": "1.0.0",
+  "description": "Prepare file to download that contains sorted movies taken from local mongodb",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "sap-konrad-app"
+  },
+  "keywords": [
+    "express",
+    "mongodb",
+    "cors"
+  ],
+  "author": "Konrad Grzyb",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "mongodb": "^3.2.3"
+  }
+}
