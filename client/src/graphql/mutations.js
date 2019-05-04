@@ -58,5 +58,12 @@ const UPDATE_MOVIE = gql`
    }
 `;
 
+const UPLOAD_FILE = gql`
+   mutation($file: Upload!) {
+     uploadFile(file: $file) {
+       filename
+     }
+   }
+`;
 
-export { ADD_MOVIE, DELETE_MOVIE, UPDATE_MOVIE };
+export { ADD_MOVIE, DELETE_MOVIE, UPDATE_MOVIE, UPLOAD_FILE };

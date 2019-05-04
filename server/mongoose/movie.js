@@ -2,13 +2,8 @@
  * Files related to Database, in this case mongoose schema and models will be placed here.
  * @type {[type]}
  */
-
-
 const mongoose = require('mongoose');
-require('mongoose-double')(mongoose); // mongoose convert float multi precision to String and then sort do not work
 const Schema = mongoose.Schema;
-const SchemaTypes = Schema.Types;
-var ObjectId = mongoose.Schema.Types.ObjectId;
 
 /**
  * Check ISO 8601 date format (not extended) YYYY-MM-DDThh:mm:ss±hh:mm not extended!

@@ -52,19 +52,16 @@ class Movies extends React.Component {
    render() {
 
       const { count, per_page, text, pages } = this.props;
+
+      // conver to number
       let struct = {
          count: +count,
          per_page: +per_page,
          pages: +pages,
          current_page: +this.state.current_page
       }
-      // -1 becuase u need to start array from 0 not 1.
-      // * number of movies shown on page make shift to start pointer on every page. Moreover cache is normalized - thus structure of this data is different than obtained from database
 
       let skip = (this.state.current_page - 1) * struct.per_page;
-      // if last page than limit is last movie (count)
-      // if not than indicate last movie on current page.
-      let limit = (this.state.current_page === struct.pages) ? struct.count : skip + struct.per_page;
 
       return (
       <Query query={MOVIES_QUERY}  variables={{skip: skip, per_page: struct.per_page}}>

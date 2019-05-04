@@ -1,75 +1,76 @@
 const express = require('express');
-const schema = require('./graphql/schema');
-const root = require('./graphql/root');
-const mongoose = require("mongoose");
+//GrphQL
 const graphqlHTTP = require('express-graphql');
-const fs = require('fs');
+const schema = require('./graphql/schema');
+let root = require('./graphql/root');
+// Upload
+const { graphqlUploadExpress } = require('graphql-upload');
+// To allow cors
 const cors = require('cors');
-const Grid = require('gridfs-stream');
+// Mogoose
+const mongoose = require("mongoose");
+
+
+// atlas mongo database
+const atlasURI = "mongodb+srv://konrazem:test123@sap-konrad-app-atlas-cluster-gqpdf.mongodb.net/db?retryWrites=true";
+// local mongo database
+const localURI = "mongodb://localhost:27017/db?connectTimeoutMS=1000&bufferCommands=false";
 
 /**
- * Production Atlas mongo database with my IP
- * @type {String}
+ * [client description]
+ * @type {[type]}
  */
-const prodURI = "mongodb+srv://konrazem:test123@sap-konrad-app-atlas-cluster-gqpdf.mongodb.net/db?retryWrites=true";
+
+
 
 /**
- * Localhost / development mongo database
- * @type {String}
+ * Client settings
+ * @type {Promise}
  */
-const devURI = "mongodb://localhost:27017/db?connectTimeoutMS=1000&bufferCommands=false";
-
-// connect to database with timeout function. useFindAndModify for depractication warning
-// useCreateIndex: collection.ensureIndex is deprecated. Use createIndexes instead. #6890
-mongoose.connect(devURI, {
-   useCreateIndex: true,
-   useFindAndModify: false,
+const client = mongoose.connect(localURI, {
+   useFindAndModify: false, //for depractication warning
+   useCreateIndex: true, // for model type unique depractication (check mongoose/movie.js)
    useNewUrlParser: true,
    socketTimeoutMS: 0,
 });
 
-//check connection
+
 const conn = mongoose.connection;
-conn.on('connected', () => console.log('connected to mongo...'));
-conn.on('error', (err) =>  console.log(err) );
-conn.on('disconnected', () => console.log('Disconnected from MongoDB'));
+conn.on('error', ( err ) =>  console.log(err) );
+conn.on('connected', () => console.log('=> connected to mongo...'));
 
 
-// gridfs-stream variable for file streaming
-let gfs;
+// Open
+conn.once('open', () => {
+   console.log('=> mongoose connection opened');
+   // create express server
+   const app = express();
+   //allow Cross-origin resource sharing for Express middleware
+   app.use(cors());
 
-/*
-Event listener callback fn fired when connected to db. The db must already be opened before calling createWriteStream or createReadStream.
- */
-mongoose.connection.once('open', () => {
-   console.log('connection opened');
-   gfs = Grid(conn.db, mongoose.mongo);
 
+
+
+
+
+
+
+
+
+
+//-----------------------------------------------------
+   // apply graphql schema and resolvers! Also apply upload files
+   app.use('/graphql',
+      graphqlUploadExpress({ maxFileSize: 1000, maxFiles: 10 }),
+      graphqlHTTP({
+        schema: schema,
+        rootValue: root,
+        graphiql: true,
+   }));
+
+   app.listen(4000, () => {
+      console.log('=> listen express server...');
+   });
 });
 
-
-// create express server
-const app = express();
-
-//allow Cross-origin resource sharing for Express middleware
-app.use(cors());
-app.use('/graphql', graphqlHTTP({
-  schema: schema,
-  rootValue: root,
-  graphiql: true,
-}));
-
-app.listen(4000, () => {
-   console.log('listen express server...');
-});
-
-
-
-/**
- * @todo:
-
- curl -X POST \
- -H "Content-Type: application/json" \
- -d '{"query": "{ movies { title } }"}' \
- http://localhost:4000/graphql
- */
+conn.on('disconnected', () => console.log('=> mongoose disconnected'));

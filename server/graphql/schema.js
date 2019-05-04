@@ -1,5 +1,6 @@
 const { buildSchema } = require('graphql');
 
+
 /**
  * GraphQl schema
  * @type {Object}
@@ -25,6 +26,8 @@ const schema = buildSchema(`
       review: String
    }
 
+   # Scalar needed to define files to upload
+   scalar Upload
 
    type Mutation {
       createMovie(input: MovieInput): Movie

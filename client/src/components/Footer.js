@@ -1,6 +1,5 @@
 import React from 'react';
 import '../css/footer.css';
-import { Query } from 'react-apollo';
 // here will be query that return list of sorted movies by rating
 export default function Footer(props) {
 

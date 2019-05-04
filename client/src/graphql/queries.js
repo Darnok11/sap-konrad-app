@@ -26,14 +26,11 @@ const MOVIES_QUERY = gql`
 `
 
 const LIST_QUERY = gql`
-   {
+   query {
       movies {
-         id
          title
          director
          rating
-         actors
-         review
          createdAt
       }
    }

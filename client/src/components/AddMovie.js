@@ -24,4 +24,5 @@ class AddMovie extends Component {
    }
 }
 
+
 export default AddMovie;

@@ -2,7 +2,7 @@ import  React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import { checkAll } from '../js/helperFunctions';
 import LabelActors from './LabelActors';
-import { ADD_MOVIE } from '../graphql/mutations';
+import { ADD_MOVIE, FILE_UPLOAD } from '../graphql/mutations';
 
 class AddMovieForm extends Component {
 
@@ -47,13 +47,13 @@ class AddMovieForm extends Component {
       return e => {
          e.preventDefault();
 
-         const { title, director, rating, actor, actors, submit_message } = this.state;
+         const { title, director, rating, actors } = this.state;
 
 
          const { text } = this.props;
          const input = {
-            title: title + "",
-            director: director + "",
+            title: title,
+            director: director,
             rating: +rating,
             actors: actors
          };

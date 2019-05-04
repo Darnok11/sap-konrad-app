@@ -1,19 +1,26 @@
 // const schema = require('./schema');
 const Movie = require('../mongoose/movie'); //mogoose model
-const {
-   generateSubstringOfISODate,
-   generateId,
-   sortObjectByKey
-} = require('../helperFunctions'); // helper functions
+const Filter = require('bad-words');
+const { GraphQLUpload } = require('graphql-upload');
 
-
+// const { makeExecutableSchema } = require('graphql-tools');
 
 /**
  * Provides a resolver functions for each API endpoint
  * @type {Object}
  */
-const root = {
+let root = {
 
+   /** -------- QUERIES ---------- */
+
+   /**
+    * Get number of movies in collection movies
+    * @return {Number}  Movie collection size
+    */
+   count: () => Movie.estimatedDocumentCount(),
+
+
+   Upload: GraphQLUpload,
    /**
     * 3 methods for finding movies
     * @param  {Object} args arguments in graphql query/mutation
@@ -38,6 +45,10 @@ const root = {
          });
       }
    },
+
+
+   /** -------- MUTATIONS ---------- */
+
 
    /**
     * Add new movie
@@ -77,20 +88,24 @@ const root = {
     * @return {Movie} updated Movie
     */
    updateReview: function(args) {
+
+      //TODO: USE SANITIZATION SERVICE: https://rapidapi.com/neutrinoapi/api/bad-word-filter
+
+      // if not use npm bad-word
+      // filter.addWords('some', 'bad', 'word'); taken from service?
+      const filter = new Filter();
+
       return Movie.findOneAndUpdate({ id: args.id }, {
          $set: {
-            review: args.review
+            review: filter.clean(args.review)
          }
       }, {
          new: true
-      }).catch(err => new Error(err));
+      }).exec();
    },
 
-   /**
-    * Get number of movies in collection movies
-    * @return {Number}  Movie collection size
-    */
-   count: () => Movie.estimatedDocumentCount()
+
+
 };
 
 module.exports = root;
