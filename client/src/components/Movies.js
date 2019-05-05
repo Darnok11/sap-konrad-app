@@ -80,7 +80,10 @@ class Movies extends React.Component {
             }
 
             return (<div>
-               {movies.map( (movie, index) =>  <Movie key={"movie-" + index} movie={movie} last={index === struct.per_page - 1} text={text} />)}
+               {movies.map( (movie, index) =>
+
+               <Movie key={"movie-" + index} movie={movie} last={index === struct.per_page - 1} text={text} />)}
+
                <Footer
                   text={text}
                   loadNext={this.loadNext}

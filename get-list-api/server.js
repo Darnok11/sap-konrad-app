@@ -3,7 +3,6 @@ const fsPromises = require('fs').promises;
 const express = require('express');
 const assert = require('assert');
 const cors = require('cors');
-
 //-----------------------------------------------------------------
 // Connection URL
 const url = 'mongodb://localhost:27017';
@@ -12,7 +11,7 @@ const url = 'mongodb://localhost:27017';
 const dbName = 'db';
 
 // File name
-const fname = "movies.txt";
+const path = __dirname + "/data/movies.txt";
 
 // Create a new MongoClient
 const client = new MongoClient(url,  { useNewUrlParser: true });
@@ -23,7 +22,8 @@ const client = new MongoClient(url,  { useNewUrlParser: true });
 // connect to express
 const app = express();
 app.use(cors()); // allow cors
-app.get('/list', function(req, res) {
+// define list route
+app.get('/list', (req, res, next) => {
    // Use connect method to connect to the Server
    client.connect(function(err) {
       assert.equal(null, err);
@@ -37,7 +37,7 @@ app.get('/list', function(req, res) {
 
          db.collection('movies').find({}, op).toArray( (err, docs) => {
             resolve(docs);
-            reject(err); //TODO: test for reject
+            err && reject(err); //TODO: test for reject
          });
       }); // Promise
 
@@ -45,11 +45,12 @@ app.get('/list', function(req, res) {
          // if I have movies I need to put them in to the file (replace content) on the server thanks to module fs. Creating file is also async thus I need new Promise.
          list = JSON.stringify(movies);
          console.log(list);
-         fsPromises.writeFile(fname, list).then( value => {
+         fsPromises.writeFile(path, list).then( value => {
             // the file is created/updated
-            const path = __dirname + "\\" + fname;
 
-            res.download(path); // handle request
+            res.sendFile(path, "movie-list.txt", (err) => {
+               err && console.log(err);
+            }); // handle request
 
          }).catch( (err) => { throw err });
 
@@ -58,8 +59,15 @@ app.get('/list', function(req, res) {
          res.send(err); //error with finding mongo movies
       }); // promise movies
 
-      client.close() }); //mongo client connect
+      // client.close(); // ?
+   }); //mongo client connect
+   // next();
 }); //app.get
+
+// resolve home page
+app.get('/', (req, res) => {
+   res.send("Here sending files");
+});
 
 app.listen(4002, () => {
    console.log("=> express listening...");

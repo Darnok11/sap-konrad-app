@@ -20,6 +20,7 @@ class App extends React.Component {
 
       return (
          <div className="App">
+
             <Header text={text} />
 
             <Query query={COUNT_QUERY}>

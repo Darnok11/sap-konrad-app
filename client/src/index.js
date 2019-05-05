@@ -46,11 +46,6 @@ const routing = (
                <App text={text}/>
 
             )} />;
-            <Route exact path="/get-list" render={() => (
-
-               <GetList text={text} />
-
-            )} />
             <Route exact path="/add-movie" render={() => (
 
                <AddMovie text={text}/>
