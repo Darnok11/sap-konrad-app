@@ -1,21 +1,29 @@
-const express = require('express');
-//GrphQL
-const graphqlHTTP = require('express-graphql');
-const schema = require('./graphql/schema');
-let root = require('./graphql/root');
-// Upload
 const { graphqlUploadExpress } = require('graphql-upload');
-// To allow cors
-const cors = require('cors');
-// Mogoose
+const graphqlHTTP = require('express-graphql');
 const mongoose = require("mongoose");
+const express = require('express');
+const schema = require('./graphql/schema');
+const cors = require('cors');
+const root = require('./graphql/root');
+const os = require('os');
+const hostname = os.hostname();
 
+let localhost = "";
+require('dns').lookup(require('os').hostname(), function (err, add, fam) {
+   err && console.log(err);
+   localhost = add; //?
+  console.log('addr: ' + add);
+});
 
+const win_docker_localhost = "192.168.99.100";
 // atlas mongo database
 const atlasURI = "mongodb+srv://konrazem:test123@sap-konrad-app-atlas-cluster-gqpdf.mongodb.net/db?retryWrites=true";
 // local mongo database
+// localhost = "127.0.0.1";
 const localURI = "mongodb://localhost:27017/db?connectTimeoutMS=1000&bufferCommands=false";
 
+
+// const dockerURI = "mongodb://localhost:27017/db?connectTimeoutMS=1000&bufferCommands=false";
 /**
  * [client description]
  * @type {[type]}
@@ -51,7 +59,7 @@ conn.once('open', () => {
 
 
 
-
+   // TODO: here GRIDFS
 
 
 
@@ -68,7 +76,7 @@ conn.once('open', () => {
         graphiql: true,
    }));
 
-   app.listen(4000, () => {
+   app.listen(8081, () => {
       console.log('=> listen express server...');
    });
 });

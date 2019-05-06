@@ -31,7 +31,7 @@ let text = text_en;
 
 const cache = new InMemoryCache();
 const client = new ApolloCient({
-   uri: 'http://localhost:4000/graphql',
+   uri: 'http://192.168.99.100:8081/graphql',
    cache
 });
 
