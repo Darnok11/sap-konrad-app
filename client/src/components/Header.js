@@ -10,6 +10,7 @@ class Header extends React.Component {
    }
 
 
+   //TODO: 
    handleClick(e) {
       e.preventDefault();
 
@@ -26,16 +27,34 @@ class Header extends React.Component {
           throw new Error('HTTP error, status = ' + response.status);
         }
 
-        return response.blob();
-      })
-      .then(function(blob) {
+        // return response.body();
+        // we need to created reader: https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Using_readable_streams
+        const reader = response.body.getReader();
 
-         var url  = window.URL.createObjectURL(blob);
-           window.location.assign(url);
-
-         // TODO: Download file
-      })
-      .catch( err => alert(err) );
+        return new ReadableStream({
+    start(controller) {
+      return pump();
+      function pump() {
+        return reader.read().then(({ done, value }) => {
+             // When no more data needs to be consumed, close the stream
+             if (done) {
+                 controller.close();
+                 return;
+             }
+             // Enqueue the next data chunk into our target stream
+             controller.enqueue(value);
+             return pump();
+           });
+         }
+       }
+     })
+     })
+   .then(stream => new Response(stream))
+   .then(response => response.blob())
+   .then(blob => console.log(blob.json()))
+   // .then(blob => URL.createObjectURL(blob))
+   // .then(url => console.log(image.src = url))
+   .catch(err => console.error(err));
 
    }
 
@@ -48,7 +67,7 @@ class Header extends React.Component {
 
             <span role="img" aria-label="Movie Camera">🎥</span>
 
-            <button onClick={this.handleClick}>{text.get_list}</button>
+            <Link to="/get-list"><button>{text.get_list}</button></Link>
          </div>
       );
    }

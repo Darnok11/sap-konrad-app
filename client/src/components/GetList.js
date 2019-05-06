@@ -1,5 +1,6 @@
 import React from 'react';
 import '../css/getList.css';
+import { Link } from 'react-router-dom';
 import { Query } from 'react-apollo';
 import { LIST_QUERY } from '../graphql/queries';
 
@@ -10,22 +11,29 @@ class GetList extends React.Component {
       const { text } = this.props;
 
       return (
-         <Query query={LIST_QUERY} >
-            {({ data: { movies } = {}, loading, error }) => {
-               if (loading) return <p>{text.loading}</p>;
-               if (error) return <p>{error.message}</p>;
+         <div className="sap-movie">
+            <div className="App-header-buttons">
+               <Link to="/" className='sap-button'>{text.go_back}</Link>
+            </div>
+            <Query query={LIST_QUERY} >
+               {({ data: { movies } = {}, loading, error }) => {
+                  if (loading) return <p>{text.loading}</p>;
+                     if (error) return <p>{error.message}</p>;
 
-               // map trough data movies
-               return (
-                  <div className="sap-movie-list">
-                  {movies.map( (movie, index) =>
-                     <MovieList key={"list-movie-key-" + index} movie={movie} text={text} />
+                        // map trough data movies
+                        return (
 
-                  )}
-                  </div>
-               );
-            }}
-         </Query>
+
+                           <div className="sap-movie-list">
+                              {movies.map( (movie, index) =>
+                                 <MovieList key={"list-movie-key-" + index} movie={movie} text={text} />
+
+                              )}
+                           </div>
+                        );
+                     }}
+                  </Query>
+         </div>
       );
    }
 }

@@ -67,11 +67,11 @@ app.get('/list', (req, res, next) => {
          res.send(err); //error with finding mongo movies
       }); // promise movies
 
-      // client.close(); // ?
    }); //mongo client connect
    // next();
 }); //app.get
 
+client.close(); // ?
 // resolve home page
 app.get('/', (req, res) => {
    res.send("Here sending files");

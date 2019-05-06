@@ -44,6 +44,11 @@ const routing = (
                <AddMovie text={text}/>
 
             )} />
+            <Route exact path="/get-list" render={() => (
+
+               <GetList text={text}/>
+
+            )} />
             <Route render={ () => (
 
                <NotFound text={text} />
