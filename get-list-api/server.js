@@ -3,9 +3,17 @@ const fsPromises = require('fs').promises;
 const express = require('express');
 const assert = require('assert');
 const cors = require('cors');
+const dns = require('dns');
+const os = require('os');
+
+dns.lookup(os.hostname(), function (err, add, fam) {
+   err && console.log(err);
+   console.log('addr: ' + add);
+});
 //-----------------------------------------------------------------
 // Connection URL
-const url = 'mongodb://localhost:27017';
+// const url = "mongodb://" + ip + ":27017";
+const url = "mongodb://192.168.99.100:27017";
 
 // Database name
 const dbName = 'db';
@@ -69,6 +77,6 @@ app.get('/', (req, res) => {
    res.send("Here sending files");
 });
 
-app.listen(4002, () => {
+app.listen(3002, () => {
    console.log("=> express listening...");
 });

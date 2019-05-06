@@ -9,7 +9,7 @@ class AddMovie extends Component {
       const { text } = this.props;
 
       return (
-         <div className="App">
+         <div>
             <div className="App-header-buttons">
                <Link to="/" className='sap-button'>{text.go_back}</Link>
             </div>

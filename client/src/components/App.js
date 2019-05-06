@@ -8,6 +8,7 @@ import '../css/app.css';
 
 
 class App extends React.Component {
+
    constructor(props) {
       super(props);
       this.state = {
@@ -19,7 +20,7 @@ class App extends React.Component {
       const { text } = this.props;
 
       return (
-         <div className="App">
+         <div className="App-wrapper">
 
             <Header text={text} />
 

@@ -54,14 +54,17 @@ class Movies extends React.Component {
       const { count, per_page, text, pages } = this.props;
 
       // conver to number
-      let struct = {
+      const struct = {
          count: +count,
          per_page: +per_page,
          pages: +pages,
          current_page: +this.state.current_page
-      }
+      };
 
-      let skip = (this.state.current_page - 1) * struct.per_page;
+
+      const skip = (this.state.current_page - 1) * struct.per_page;
+
+      const last = struct.count - ((struct.current_page - 1) * struct.per_page);
 
       return (
       <Query query={MOVIES_QUERY}  variables={{skip: skip, per_page: struct.per_page}}>
@@ -80,9 +83,9 @@ class Movies extends React.Component {
             }
 
             return (<div>
-               {movies.map( (movie, index) =>
-
-               <Movie key={"movie-" + index} movie={movie} last={index === struct.per_page - 1} text={text} />)}
+               {movies.map( (movie, index) => {
+                  return <Movie key={"movie-" + index} movie={movie} last={index === last - 1 || index === struct.per_page - 1} text={text} />;
+               })}
 
                <Footer
                   text={text}

@@ -1,9 +1,3 @@
-/**
- * Use of pagination explenation:
- * In case we have too many items to load, and it would overload our backend, the connection, or the client to load all of the items at once. This is a performance concern.
- */
-
-
 // React
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -19,7 +13,7 @@ import Copyrights from './components/Copyrights';
 import { InMemoryCache } from 'apollo-boost';
 import ApolloCient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
-import text_en from './resources/text_en';
+import { text_en, ports } from './resources/data';
 
 /**
  *  English interface
@@ -27,11 +21,10 @@ import text_en from './resources/text_en';
 let text = text_en;
 
 
-// NOTE: I would use React.Context for text but then on every cmp which use text I need to give Consumer cmp ?!!
-
+// TODO: I could use React.Context or cache
 const cache = new InMemoryCache();
 const client = new ApolloCient({
-   uri: 'http://192.168.99.100:8081/graphql',
+   uri: ports.graphql,
    cache
 });
 
@@ -39,7 +32,7 @@ const client = new ApolloCient({
 const routing = (
    <Router>
       <ApolloProvider client={client}>
-      <div>
+      <div className="App">
          <Switch>
             <Route exact path="/" render={() => (
 

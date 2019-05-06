@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../css/header.css';
+import { ports } from '../resources/data';
 
 class Header extends React.Component {
    constructor(props) {
@@ -13,7 +13,7 @@ class Header extends React.Component {
    handleClick(e) {
       e.preventDefault();
 
-      let myRequest = new Request('http://localhost:4002/list');
+      let myRequest = new Request(ports.list);
 
       fetch(myRequest, {
          method: 'GET',
@@ -32,7 +32,10 @@ class Header extends React.Component {
 
          var url  = window.URL.createObjectURL(blob);
            window.location.assign(url);
-      });
+
+         // TODO: Download file
+      })
+      .catch( err => alert(err) );
 
    }
 
@@ -40,7 +43,7 @@ class Header extends React.Component {
    render() {
       const { text } = this.props;
       return (
-         <div className="sap-header-buttons" >
+         <div className="App-header-buttons" >
             <Link to="/add-movie"><button>{text.add_movie}</button></Link>
 
             <span role="img" aria-label="Movie Camera">🎥</span>
