@@ -1,4 +1,44 @@
-# sap-konrad-app
+# How to use it
+
+Before run make sure docker mongo image run on localhost http://192.168.99.100:27017.
+
+After please run yaml file:
+```
+kubectl apply -f A.yaml
+```
+to run deployment and then create service in minikube
+or run:
+```
+kobectl apply -f serviceA.yaml
+```
+to run the service directly.
+
+The most important are application client in react-apollo as docker hub image konrazem/sap-react:0 and server in nodejs-express-graphql as docker hub image konrazem/sap-graphql:mongodocker.
+
+You can run client server locally with commands:
+```
+npm start
+```
+or run as containers:
+```
+# you need docker volume (mongodata) for mongodb to have data persitante
+docker pull mongo
+docker volume create --name=mongodata
+
+# build images
+docker image build -t sap-list .
+docker image build -t sap-graphql .
+docker image build -t sap-react .
+
+# build and start containers
+docker run --name mongodb -v mongodata:/data/db -d -p 27017:27017 --network="mynet" mongo
+docker run --name sap-list -p 4002:3002 --network="mynet" sap-list
+docker run --name sap-react -p 80:80 --network="mynet" --rm konrazem/sap-react
+```
+
+
+
+# Task
 
 ## Goal
 The main goal of this task is to create a simple application for managing movies. Application should consist of user interface and 2 micro services responsible for:
