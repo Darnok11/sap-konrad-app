@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sap
+  labels:
+    app: sap
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sap
+  template:
+    metadata:
+      labels:
+        app: sap
+    spec:
+      containers:
+      - name: sap-react
+        image: konrazem/sap-react:latest
+        ports:
+        - containerPort: 3000
+      - name: sap-graphql
+        image: konrazem/sap-graphql:mongodocker
+        ports:
+        - containerPort: 3001

@@ -3,24 +3,19 @@ const graphqlHTTP = require('express-graphql');
 const mongoose = require("mongoose");
 const express = require('express');
 const schema = require('./graphql/schema');
-const cors = require('cors');
 const root = require('./graphql/root');
-const dns = require('dns');
-const os = require('os');
-
-dns.lookup(os.hostname(), function (err, add, fam) {
-   err && console.log(err);
-   console.log('addr: ' + add);
-});
+const cors = require('cors');
+const port = 3001;
 
 
 // atlas mongo database
-const atlasURI = "mongodb+srv://konrazem:test123@sap-konrad-app-atlas-cluster-gqpdf.mongodb.net/db?retryWrites=true";
+const atlasURI = "mongodb+srv://user:123sap@sap-konrad-app-atlas-cluster-gqpdf.mongodb.net/db?retryWrites=true";
+
 // local mongo database
-const localURI = "mongodb://192.168.99.100:27017/db?connectTimeoutMS=1000&bufferCommands=false";
+const dockerURI = "mongodb://192.168.99.100:27017/db?connectTimeoutMS=1000&bufferCommands=false";
 
 
-const client = mongoose.connect(localURI, {
+const client = mongoose.connect(dockerURI, {
    useFindAndModify: false, //for depractication warning
    useCreateIndex: true, // for model type unique depractication (check mongoose/movie.js)
    useNewUrlParser: true,
@@ -50,9 +45,8 @@ conn.once('open', () => {
         graphiql: true,
    }));
 
-   app.listen(3001, () => {
-      console.log('=> listen express server...');
+   app.listen(port, () => {
+      console.log('=> listen express server on port: ' + port);
    });
 });
-
 conn.on('disconnected', () => console.log('=> mongoose disconnected'));

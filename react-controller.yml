@@ -1,0 +1,19 @@
+# react-controller.yml
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  labels:
+    name: web
+  name: react-controller
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        name: web
+    spec:
+      containers:
+      - image: konrazem/sap-react
+        name: sap-react
+        ports:
+        - containerPort: 3000
