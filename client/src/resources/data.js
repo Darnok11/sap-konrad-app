@@ -1,6 +1,5 @@
 const dns = require('dns');
 const os = require('os');
-let host = "127.0.0.1";
 dns.lookup(os.hostname(), function (err, add, fam) {
    err && console.log(err);
    console.log('addr: ' + add);
@@ -8,7 +7,8 @@ dns.lookup(os.hostname(), function (err, add, fam) {
 
 const ports = {
   // 'graphql': "http://sap-konrad-app:4001/graphql",
-  'graphql': "http://" + host + ":3001/graphql",
+  // service endpoint sap-konrad-graphql   172.17.0.2:3001,172.17.0.8:3001
+  'graphql': "http://sap-konrad-graphql/graphql",
   'list': "http://localhost:4002/list"
 };
 

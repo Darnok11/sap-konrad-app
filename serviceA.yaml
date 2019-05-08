@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sap-konrad-app
+spec:
+  selector:
+    name: sap-konrad-app
+  clusterIP: None # Exposes the service on a cluster-internal IP. Choosing this value makes the service only reachable from within the cluster. This is the default ServiceType
+  ports:
+  - name: sap-konrad-app # Actually, no port is needed.
+    port: 80
+    targetPort: 3000
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sap-react
+  labels:
+    name: sap-react
+spec:
+  hostname: sap-konrad-react
+  subdomain: sap-konrad-app
+  containers:
+  - name: sap-react
+    image: konrazem/sap-react:0
+    ports:
+    - containerPort: 3001 # wait for graphql
+    command:
+      - sleep
+      - "3600"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sap-graphql
+  labels:
+    name: sap-graphql
+spec:
+  hostname: sap-konrad-graphql
+  subdomain: sap-konrad-app
+  containers:
+  - name: sap-graphql
+    image: konrazem/sap-graphql:mongodocker
+    ports:
+    - containerPort: 3001

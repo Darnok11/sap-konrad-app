@@ -8,7 +8,7 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-      app: sap
+      app: sap-konrad-graphql
   template:
     metadata:
       labels:
@@ -16,9 +16,9 @@ spec:
     spec:
       containers:
       - name: sap-react
-        image: konrazem/sap-react:latest
+        image: konrazem/sap-react:1
         ports:
-        - containerPort: 3000
+        - containerPort: 80
       - name: sap-graphql
         image: konrazem/sap-graphql:mongodocker
         ports:
