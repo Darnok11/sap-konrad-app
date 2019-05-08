@@ -6,9 +6,12 @@ dns.lookup(os.hostname(), function (err, add, fam) {
 });
 
 const ports = {
-  // 'graphql': "http://sap-konrad-app:4001/graphql",
+  'graphql': "http://localhost:3001/graphql",
+  // docker image
+  // 'graphql': "http://http://192.168.99.100:4001/graphql",
   // service endpoint sap-konrad-graphql   172.17.0.2:3001,172.17.0.8:3001
-  'graphql': "http://sap-konrad-graphql/graphql",
+  // for Kubernetes
+  // 'graphql': "http://sap-konrad-graphql/graphql",
   'list': "http://localhost:4002/list"
 };
 

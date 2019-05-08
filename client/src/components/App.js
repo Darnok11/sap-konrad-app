@@ -3,7 +3,7 @@ import Header from './Header';
 import Movies from './Movies';
 import { Query } from 'react-apollo';
 import { COUNT_QUERY } from '../graphql/queries';
-import '../css/app.css';
+import '../css/App.css';
 
 
 

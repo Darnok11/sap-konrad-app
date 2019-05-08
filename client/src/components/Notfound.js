@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Copyrights from './Copyrights';
-import "../css/Notfound.css";
+import "../css/NotFound.css";
 
 class NotFound  extends Component {
    render() {
